@@ -1,0 +1,13 @@
+[creator]
+type = "user"
+id = 10893794822
+
+[codegen]
+typescript = false
+style = "nested"
+strip_extensions = true
+
+[inputs.Assets]
+path = "assets/asphalt/**/*"
+output_path = "src/UserInterface"
+bleed = true
