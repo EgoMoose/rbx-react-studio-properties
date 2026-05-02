@@ -42,46 +42,22 @@ local function Widget(props: Props)
 	})
 end
 
-local UILabs = require(game.ReplicatedStorage.DevPackages.UILabs)
-
-local Studio = settings().Studio
-local themes = Studio:GetAvailableThemes()
-
 return {
 	react = React,
 	reactRoblox = ReactRoblox,
-
-	controls = {
-		disabled = false,
-		theme = UILabs.Choose({ "Default", "Dark", "Light" }),
-	},
-
 	story = CreateStory(function(props)
-		local rootTheme = nil
-		if props.controls.theme == "Dark" then
-			rootTheme = themes[2]
-		elseif props.controls.theme == "Light" then
-			rootTheme = themes[1]
-		end
+		local theme = StudioComponents.useTheme()
 
-		return React.createElement(StudioComponents.ThemeContext.Provider, {
-			value = rootTheme,
+		return React.createElement("Frame", {
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			Position = UDim2.fromScale(0.5, 0.5),
+			Size = UDim2.fromOffset(300, 450),
+			BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.MainBackground),
+			BorderColor3 = theme:GetColor(Enum.StudioStyleGuideColor.Border),
 		}, {
-			Story = React.createElement(function()
-				local theme = StudioComponents.useTheme()
-
-				return React.createElement("Frame", {
-					AnchorPoint = Vector2.new(0.5, 0.5),
-					Position = UDim2.fromScale(0.5, 0.5),
-					Size = UDim2.fromOffset(300, 450),
-					BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.MainBackground),
-					BorderColor3 = theme:GetColor(Enum.StudioStyleGuideColor.Border),
-				}, {
-					Core = React.createElement(Widget, {
-						Disabled = props.controls.disabled,
-					}),
-				})
-			end),
+			Core = React.createElement(Widget, {
+				Disabled = props.controls.disabled,
+			}),
 		})
 	end),
 }
