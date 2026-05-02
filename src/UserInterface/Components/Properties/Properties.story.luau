@@ -1,13 +1,12 @@
 local uiRoot = script:FindFirstAncestor("UserInterface")
 local VerticalScroll = require(uiRoot.Components.VerticalScroll)
 local CreateStory = require(uiRoot.Stories.CreateStory)
+local StudioProperties = require(uiRoot.Parent)
 
 local pkgs = uiRoot.Parent.Parent
 local StudioComponents = require(pkgs.StudioComponents)
 local ReactRoblox = require(pkgs.ReactRoblox)
 local React = require(pkgs.React)
-
-local Properties = require(script.Parent)
 
 type Props = {
 	Disabled: boolean?,
@@ -33,7 +32,7 @@ local function Widget(props: Props)
 				Padding = UDim.new(0, 0),
 			}),
 
-			PrimitivesGroup = React.createElement(Properties.Group, {
+			PrimitivesGroup = React.createElement(StudioProperties.PropertyGroup, {
 				GroupName = "Primitives",
 				ForceExpanded = true,
 				Disabled = props.Disabled,
@@ -47,7 +46,7 @@ local function Widget(props: Props)
 
 				StringField = React.createElement(function()
 					local value, setValue = React.useState("Hello")
-					return React.createElement(Properties.String, {
+					return React.createElement(StudioProperties.String, {
 						FieldName = "String",
 
 						Value = value,
@@ -60,7 +59,7 @@ local function Widget(props: Props)
 
 				NumberField = React.createElement(function()
 					local value, setValue = React.useState(1)
-					return React.createElement(Properties.Number, {
+					return React.createElement(StudioProperties.Number, {
 						FieldName = "Number",
 
 						Value = value,
@@ -78,7 +77,7 @@ local function Widget(props: Props)
 
 				BooleanField = React.createElement(function()
 					local value, setValue = React.useState(false)
-					return React.createElement(Properties.Boolean, {
+					return React.createElement(StudioProperties.Boolean, {
 						FieldName = "Boolean",
 
 						Value = value,
@@ -91,7 +90,7 @@ local function Widget(props: Props)
 
 				DropdownField = React.createElement(function()
 					local value, setValue = React.useState("ThingA")
-					return React.createElement(Properties.Dropdown, {
+					return React.createElement(StudioProperties.Dropdown, {
 						FieldName = "Dropdown",
 
 						Value = value,
@@ -112,7 +111,7 @@ local function Widget(props: Props)
 
 				InstanceField = React.createElement(function()
 					local value, setValue = React.useState(workspace :: Instance?)
-					return React.createElement(Properties.Instance, {
+					return React.createElement(StudioProperties.Instance, {
 						FieldName = "Instance",
 
 						Value = value,
@@ -124,7 +123,7 @@ local function Widget(props: Props)
 				end),
 			}),
 
-			RobloxGroup = React.createElement(Properties.Group, {
+			RobloxGroup = React.createElement(StudioProperties.PropertyGroup, {
 				GroupName = "Roblox",
 				Disabled = props.Disabled,
 				LayoutOrder = 2,
@@ -137,7 +136,7 @@ local function Widget(props: Props)
 
 				Vector2Field = React.createElement(function()
 					local value, setValue = React.useState(Vector2.new(1, 2))
-					return React.createElement(Properties.Vector2, {
+					return React.createElement(StudioProperties.Vector2, {
 						FieldName = "Vector2",
 
 						Value = value,
@@ -150,7 +149,7 @@ local function Widget(props: Props)
 
 				Vector3Field = React.createElement(function()
 					local value, setValue = React.useState(Vector3.new(1, 2, 3))
-					return React.createElement(Properties.Vector3, {
+					return React.createElement(StudioProperties.Vector3, {
 						FieldName = "Vector3",
 
 						Value = value,
@@ -163,7 +162,7 @@ local function Widget(props: Props)
 
 				UDimField = React.createElement(function()
 					local value, setValue = React.useState(UDim.new(1, 10))
-					return React.createElement(Properties.UDim, {
+					return React.createElement(StudioProperties.UDim, {
 						FieldName = "UDim",
 
 						Value = value,
@@ -176,7 +175,7 @@ local function Widget(props: Props)
 
 				UDim2Field = React.createElement(function()
 					local value, setValue = React.useState(UDim2.new(1, 10, 1, 10))
-					return React.createElement(Properties.UDim2, {
+					return React.createElement(StudioProperties.UDim2, {
 						FieldName = "UDim2",
 
 						Value = value,
@@ -189,7 +188,7 @@ local function Widget(props: Props)
 
 				CFrameField = React.createElement(function()
 					local value, setValue = React.useState(CFrame.identity)
-					return React.createElement(Properties.CFrame, {
+					return React.createElement(StudioProperties.CFrame, {
 						FieldName = "CFrame",
 
 						Value = value,
@@ -202,7 +201,7 @@ local function Widget(props: Props)
 
 				Color3Field = React.createElement(function()
 					local value, setValue = React.useState(Color3.fromRGB(255, 20, 30))
-					return React.createElement(Properties.Color3, {
+					return React.createElement(StudioProperties.Color3, {
 						FieldName = "Color3",
 
 						Value = value,
@@ -214,7 +213,7 @@ local function Widget(props: Props)
 				end),
 				Color3Field2 = React.createElement(function()
 					local value, setValue = React.useState(Color3.fromRGB(0, 255, 30))
-					return React.createElement(Properties.Color3, {
+					return React.createElement(StudioProperties.Color3, {
 						FieldName = "Color3",
 
 						Value = value,
