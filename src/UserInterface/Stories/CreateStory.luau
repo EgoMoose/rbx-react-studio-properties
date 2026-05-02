@@ -1,5 +1,5 @@
 --!nocheck
---!nolint UnknownGlobal
+--!nolint
 
 local uiRoot = script:FindFirstAncestor("UserInterface")
 local PluginContext = require(uiRoot.Contexts.PluginContext)
