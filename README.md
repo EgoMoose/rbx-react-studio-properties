@@ -12,5 +12,10 @@
 
 React implementations of Roblox Studio properties.
 
+Components are close to 1:1 with Roblox, but have a few very minor deviations.
+
 https://github.com/user-attachments/assets/6bdb047e-8d56-4057-aa74-726bbda23b95
 
+## Studio Components
+
+This package is heavily inspired by [StudioComponents](https://github.com/sircfenner/StudioComponents) and actually uses it internally for a number of components. It is highly recommended for best visual continuity to use this package alongside that one.
