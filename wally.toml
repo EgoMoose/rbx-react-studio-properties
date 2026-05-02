@@ -1,9 +1,13 @@
 [package]
 name = "egomoose/react-studio-properties"
+description = "React implementations of Roblox Studio properties."
+repository = "https://github.com/EgoMoose/rbx-react-studio-properties"
 version = "0.1.0"
 registry = "https://github.com/UpliftGames/wally-index"
 realm = "shared"
-private = true
+license = "MIT"
+exclude = ["**"]
+include = ["src", "src/**", "wally.toml", "wally.lock", "default.project.json", "LICENSE"]
 
 [dependencies]
 Trove = "sleitnick/trove@=1.5.1"
