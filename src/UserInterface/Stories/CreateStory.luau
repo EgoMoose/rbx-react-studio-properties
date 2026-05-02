@@ -1,8 +1,10 @@
 --!nocheck
 --!nolint UnknownGlobal
 
-local pkgs = script:FindFirstAncestor("UserInterface").Parent.Parent
-local StudioComponents = require(pkgs.StudioComponents)
+local uiRoot = script:FindFirstAncestor("UserInterface")
+local PluginContext = require(uiRoot.Contexts.PluginContext)
+
+local pkgs = uiRoot.Parent.Parent
 local React = require(pkgs.React)
 
 -- selene: allow(undefined_variable)
@@ -16,8 +18,8 @@ local function createStory(component: React.FC<any>)
 			end
 		end, {})
 
-		return React.createElement(StudioComponents.PluginProvider, {
-			Plugin = plugin,
+		return React.createElement(PluginContext.Provider, {
+			value = plugin,
 		}, {
 			Component = React.createElement(component, props),
 		})

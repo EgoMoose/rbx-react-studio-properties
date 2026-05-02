@@ -1,8 +1,8 @@
 local uiRoot = script:FindFirstAncestor("UserInterface")
+local usePlugin = require(uiRoot.Hooks.usePlugin)
 local Observables = require(uiRoot.Observables)
 
 local pkgs = uiRoot.Parent.Parent
-local StudioComponents = require(pkgs.StudioComponents)
 local React = require(pkgs.React)
 local Trove = require(pkgs.Trove)
 
@@ -21,7 +21,7 @@ local DOCK_INFO = DockWidgetPluginGuiInfo.new(
 )
 
 local function useColorPickerDock()
-	local plugin = StudioComponents.usePlugin()
+	local plugin = usePlugin()
 
 	local isOpen, setIsOpen = React.useState(false)
 	local colorPickerOpen = Observables.colorPickerOpen:use()

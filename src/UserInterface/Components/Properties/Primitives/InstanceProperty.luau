@@ -1,6 +1,9 @@
 local SelectionService = game:GetService("Selection") :: Selection
 
-local pkgs = script:FindFirstAncestor("UserInterface").Parent.Parent
+local uiRoot = script:FindFirstAncestor("UserInterface")
+local usePlugin = require(uiRoot.Hooks.usePlugin)
+
+local pkgs = uiRoot.Parent.Parent
 local StudioComponents = require(pkgs.StudioComponents)
 local Lucide = require(pkgs.Lucide)
 local React = require(pkgs.React)
@@ -30,7 +33,7 @@ export type Props = {
 }
 
 local function useInstanceSelector()
-	local plugin = StudioComponents.usePlugin()
+	local plugin = usePlugin()
 	local troveRef = React.useRef(Trove.new())
 
 	local cancel = React.useCallback(function()
