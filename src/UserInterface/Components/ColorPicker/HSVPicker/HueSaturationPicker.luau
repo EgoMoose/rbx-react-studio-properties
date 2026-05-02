@@ -35,11 +35,11 @@ local function HueSaturationPicker(props: Props)
 	local hue, saturation = props.HSV[1], props.HSV[2]
 	local dragger = useMouseDrag(function(rbx: GuiObject, input: InputObject)
 		local mousePos = Vector2.new(input.Position.X, input.Position.Y)
-		local alpha = (mousePos - rbx.AbsolutePosition) / rbx.AbsoluteSize
-		alpha = alpha:Max(Vector2.zero):Min(Vector2.one)
+		local uvCoords = (mousePos - rbx.AbsolutePosition) / rbx.AbsoluteSize
+		uvCoords = uvCoords:Max(Vector2.zero):Min(Vector2.one)
 
 		if props.OnChanged then
-			props.OnChanged(1 - alpha.X, 1 - alpha.Y)
+			props.OnChanged(1 - uvCoords.X, 1 - uvCoords.Y)
 		end
 	end, { hue, saturation, props.OnChanged } :: { any })
 
