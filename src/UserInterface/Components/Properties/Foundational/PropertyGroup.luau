@@ -11,6 +11,7 @@ export type Props = {
 	Position: UDim2?,
 
 	GroupName: string,
+	ForceExpanded: boolean?,
 
 	LayoutOrder: number?,
 	ZIndex: number?,
@@ -22,12 +23,19 @@ export type Props = {
 local function PropertyGroup(props: Props)
 	local theme = StudioComponents.useTheme()
 	local isHovered, setIsHovered = React.useState(false)
-	local isExpanded, setIsExpanded = React.useState(true)
+	local isExpandedRaw, setIsExpandedRaw = React.useState(true)
+	local isExpanded = props.ForceExpanded or isExpandedRaw
 
 	local isHoveringDisabled = Observables.hoveringDisabled:use()
 	if isHoveringDisabled then
 		isHovered = false
 	end
+
+	React.useEffect(function()
+		if props.ForceExpanded then
+			setIsExpandedRaw(true)
+		end
+	end, { props.ForceExpanded })
 
 	return React.createElement("Frame", {
 		BackgroundTransparency = 1,
@@ -67,7 +75,7 @@ local function PropertyGroup(props: Props)
 
 				[React.Event.InputBegan] = function(_, input: InputObject)
 					if input.UserInputType == Enum.UserInputType.MouseButton1 then
-						setIsExpanded(not isExpanded)
+						setIsExpandedRaw(not isExpandedRaw)
 					end
 				end,
 			}, {

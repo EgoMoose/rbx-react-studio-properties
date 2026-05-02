@@ -35,6 +35,7 @@ local function Widget(props: Props)
 
 			PrimitivesGroup = React.createElement(Properties.Group, {
 				GroupName = "Primitives",
+				ForceExpanded = true,
 				Disabled = props.Disabled,
 				LayoutOrder = 1,
 			}, {
