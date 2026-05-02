@@ -1,6 +1,15 @@
 {
 	"name": "react-studio-properties",
+	"syncRules": [
+		{
+			"pattern": "LICENSE",
+			"use": "moduleScript"
+		}
+	],
 	"tree": {
-		"$path": "src"
+		"$path": "src",
+		"LICENSE": {
+			"$path": "LICENSE"
+		}
 	}
 }
