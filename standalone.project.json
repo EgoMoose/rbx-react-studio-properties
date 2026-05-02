@@ -1,0 +1,16 @@
+{
+	"name": "StudioProperties",
+	"tree": {
+		"$className": "ModuleScript",
+		"$properties": {
+			"Source": "return require(script.Packages.StudioProperties)"
+		},
+
+		"Packages": {
+			"$path": "Packages",
+			"StudioProperties": {
+				"$path": "default.project.json"
+			}
+		}
+	}
+}
