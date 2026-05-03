@@ -16,7 +16,9 @@ React implementations of Roblox Studio properties.
 
 Components are close to 1:1 with Roblox, but have a few very minor deviations.
 
-https://github.com/user-attachments/assets/6bdb047e-8d56-4057-aa74-726bbda23b95
+<img width="200" alt="AfnxIljnJD" src="https://github.com/user-attachments/assets/f344ca4a-2e13-4b98-ada7-4012435e8ea5" /> <img width="300" alt="RobloxStudioBeta_TSfCA7Qtig" src="https://github.com/user-attachments/assets/29092ec9-6970-42e4-8f61-85dd420bc298" />
+
+https://github.com/user-attachments/assets/11703415-e14e-4cb2-9e51-77ec55c3ba78
 
 ## Studio Components
 
