@@ -37,6 +37,7 @@ local function useColorPickerDock()
 			local trove = Trove.new()
 
 			local dock = plugin:CreateDockWidgetPluginGuiAsync(DOCK_ID, DOCK_INFO)
+			dock.Title = "Select Color"
 			dock.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 			Observables.colorPickerDock:set(dock)
 

@@ -4,7 +4,7 @@ local ReactRoblox = require(pkgs.ReactRoblox)
 local React = require(pkgs.React)
 
 return {
-	name = "Studio Properties",
+	name = "StudioProperties",
 	storyRoots = {
 		uiRoot.Components.Properties,
 		uiRoot.Components.ColorPicker,
