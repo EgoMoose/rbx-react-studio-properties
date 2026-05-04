@@ -177,7 +177,7 @@ local function Widget(props: Props)
 					local value, setValue = React.useState(UDim2.new(1, 10, 1, 10))
 					return React.createElement(StudioProperties.UDim2, {
 						FieldName = "UDim2",
-						ForceExpanded = true,
+						ForceExpanded = false,
 
 						Value = value,
 						OnValueSubmitted = setValue,
@@ -191,6 +191,7 @@ local function Widget(props: Props)
 					local value, setValue = React.useState(CFrame.identity)
 					return React.createElement(StudioProperties.CFrame, {
 						FieldName = "CFrame",
+						ForceExpanded = true,
 
 						Value = value,
 						OnValueSubmitted = setValue,
