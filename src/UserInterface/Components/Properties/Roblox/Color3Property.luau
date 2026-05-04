@@ -17,6 +17,7 @@ export type Props = {
 	Position: UDim2?,
 
 	FieldName: string,
+	ForceExpanded: boolean?,
 
 	Value: Color3,
 	OnValueSubmitted: (Color3) -> ()?,
@@ -70,6 +71,7 @@ local function Color3Property(props: Props)
 		Position = props.Position,
 
 		FieldName = props.FieldName,
+		ForceExpanded = props.ForceExpanded,
 
 		OnFocusLost = function()
 			setEditingEnabled(false)

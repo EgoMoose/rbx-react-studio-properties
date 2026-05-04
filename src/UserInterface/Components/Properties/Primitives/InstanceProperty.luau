@@ -20,6 +20,7 @@ export type Props = {
 	Position: UDim2?,
 
 	FieldName: string,
+	ForceExpanded: boolean?,
 
 	Value: Instance?,
 	OnValueSubmitted: (Instance?) -> ()?,
@@ -110,6 +111,7 @@ local function InstanceProperty(props: Props)
 		Position = props.Position,
 
 		FieldName = props.FieldName,
+		ForceExpanded = props.ForceExpanded,
 
 		OnFocusLost = function()
 			setEditingEnabled(false)

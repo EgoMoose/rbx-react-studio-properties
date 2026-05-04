@@ -12,6 +12,7 @@ export type Props = {
 	Position: UDim2?,
 
 	FieldName: string,
+	ForceExpanded: boolean?,
 
 	OnFocus: () -> ()?,
 	OnFocusLost: () -> ()?,
@@ -51,6 +52,9 @@ local function PropertyLine(props: Props)
 
 	local isExpanded, setIsExpanded = React.useState(false)
 	local expandArrowHoverRef = React.useRef(false)
+	if props.ForceExpanded ~= nil then
+		isExpanded = props.ForceExpanded
+	end
 
 	local inputObjectRef = React.useRef(nil :: InputObject?)
 
@@ -141,7 +145,7 @@ local function PropertyLine(props: Props)
 					BackgroundTransparency = 1,
 					Size = UDim2.new(0, Constants.LineHeight * indent, 1, 0),
 				}, {
-					Button = props.children and React.createElement("Frame", {
+					Button = props.children and props.ForceExpanded ~= false and React.createElement("Frame", {
 						Active = false,
 						BackgroundTransparency = 1,
 						AnchorPoint = Vector2.new(1, 0),
@@ -150,7 +154,10 @@ local function PropertyLine(props: Props)
 						SizeConstraint = Enum.SizeConstraint.RelativeYY,
 
 						[React.Event.InputBegan] = function(_, input: InputObject)
-							if input.UserInputType == Enum.UserInputType.MouseButton1 then
+							if
+								props.ForceExpanded == nil
+								and input.UserInputType == Enum.UserInputType.MouseButton1
+							then
 								setIsExpanded(not isExpanded)
 							end
 						end,

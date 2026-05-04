@@ -13,6 +13,7 @@ export type Props = {
 	Position: UDim2?,
 
 	FieldName: string,
+	ForceExpanded: boolean?,
 
 	Value: string,
 	OnValueSubmitted: (string) -> ()?,
@@ -54,6 +55,7 @@ local function DropdownProperty(props: Props)
 		Position = props.Position,
 
 		FieldName = props.FieldName,
+		ForceExpanded = props.ForceExpanded,
 
 		Indent = props.Indent,
 		LayoutOrder = props.LayoutOrder,

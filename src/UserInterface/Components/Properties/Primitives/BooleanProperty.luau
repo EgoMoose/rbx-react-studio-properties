@@ -10,6 +10,7 @@ export type Props = {
 	Position: UDim2?,
 
 	FieldName: string,
+	ForceExpanded: boolean?,
 
 	Value: boolean,
 	OnValueSubmitted: (boolean) -> ()?,
@@ -28,6 +29,7 @@ local function StringProperty(props: Props)
 		Position = props.Position,
 
 		FieldName = props.FieldName,
+		ForceExpanded = props.ForceExpanded,
 
 		OnActivated = function()
 			if props.OnValueSubmitted then
