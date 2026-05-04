@@ -193,6 +193,7 @@ local function InstanceProperty(props: Props)
 							Image = CLEAR_ICON.Url,
 							ImageRectSize = CLEAR_ICON.ImageRectSize,
 							ImageRectOffset = CLEAR_ICON.ImageRectOffset,
+							ImageColor3 = theme:GetColor(Enum.StudioStyleGuideColor.MainText),
 						}),
 					}),
 				}),
