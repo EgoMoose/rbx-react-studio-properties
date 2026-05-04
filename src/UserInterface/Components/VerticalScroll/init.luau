@@ -20,6 +20,8 @@ export type Props = {
 	GradientHeight: number?,
 	GradientColor: Color3?,
 
+	LayoutOrder: number?,
+	ZIndex: number?,
 	Disabled: boolean?,
 
 	children: React.ReactNode?,
@@ -44,12 +46,17 @@ local function VerticalScroll(props: Props)
 
 	local scrollInset = props.ScrollInset or UDim.new(0, 0)
 	local scrollVisibleTransparency = props.ScrollBarTransparency or 0
+	if props.Disabled then
+		scrollVisibleTransparency = 1
+	end
 
 	return React.createElement("Frame", {
 		BackgroundTransparency = 1,
 		AnchorPoint = props.AnchorPoint,
 		Position = props.Position,
 		Size = props.Size,
+		LayoutOrder = props.LayoutOrder,
+		ZIndex = props.ZIndex,
 
 		[React.Event.MouseEnter] = function()
 			setScrollTransparency(0)
