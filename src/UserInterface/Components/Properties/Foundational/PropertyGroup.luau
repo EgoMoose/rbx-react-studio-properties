@@ -23,19 +23,16 @@ export type Props = {
 local function PropertyGroup(props: Props)
 	local theme = StudioComponents.useTheme()
 	local isHovered, setIsHovered = React.useState(false)
-	local isExpandedRaw, setIsExpandedRaw = React.useState(true)
-	local isExpanded = props.ForceExpanded or isExpandedRaw
+
+	local isExpanded, setIsExpanded = React.useState(true)
+	if props.ForceExpanded ~= nil then
+		isExpanded = props.ForceExpanded
+	end
 
 	local isHoveringDisabled = Observables.hoveringDisabled:use()
 	if isHoveringDisabled then
 		isHovered = false
 	end
-
-	React.useEffect(function()
-		if props.ForceExpanded then
-			setIsExpandedRaw(true)
-		end
-	end, { props.ForceExpanded })
 
 	return React.createElement("Frame", {
 		BackgroundTransparency = 1,
@@ -68,33 +65,34 @@ local function PropertyGroup(props: Props)
 				setIsHovered(false)
 			end,
 		}, {
-			Button = props.children and React.createElement("Frame", {
-				Active = false,
-				BackgroundTransparency = 1,
-				Size = UDim2.new(0, 22, 1, 0),
-
-				[React.Event.InputBegan] = function(_, input: InputObject)
-					if input.UserInputType == Enum.UserInputType.MouseButton1 then
-						setIsExpandedRaw(not isExpandedRaw)
-					end
-				end,
-			}, {
-				Icon = React.createElement("ImageLabel", {
+			Button = props.children
+				and React.createElement("Frame", {
+					Active = false,
 					BackgroundTransparency = 1,
-					AnchorPoint = Vector2.new(0.5, 0.5),
-					Position = UDim2.fromScale(0.5, 0.5),
-					Size = UDim2.fromOffset(16, 16),
-					Image = Assets.ArrowsSpriteSheet,
-					ImageRectSize = Vector2.new(16, 16),
-					ImageRectOffset = if isExpanded then Vector2.new(16, 0) else Vector2.new(16, 16),
-					ImageColor3 = theme:GetColor(
-						Enum.StudioStyleGuideColor.ButtonText,
-						if props.Disabled
-							then Enum.StudioStyleGuideModifier.Disabled
-							else Enum.StudioStyleGuideModifier.Default
-					),
+					Size = UDim2.new(0, 22, 1, 0),
+
+					[React.Event.InputBegan] = function(_, input: InputObject)
+						if props.ForceExpanded == nil and input.UserInputType == Enum.UserInputType.MouseButton1 then
+							setIsExpanded(not isExpanded)
+						end
+					end,
+				}, {
+					Icon = React.createElement("ImageLabel", {
+						BackgroundTransparency = 1,
+						AnchorPoint = Vector2.new(0.5, 0.5),
+						Position = UDim2.fromScale(0.5, 0.5),
+						Size = UDim2.fromOffset(16, 16),
+						Image = Assets.ArrowsSpriteSheet,
+						ImageRectSize = Vector2.new(16, 16),
+						ImageRectOffset = if isExpanded then Vector2.new(16, 0) else Vector2.new(16, 16),
+						ImageColor3 = theme:GetColor(
+							Enum.StudioStyleGuideColor.ButtonText,
+							if props.Disabled
+								then Enum.StudioStyleGuideModifier.Disabled
+								else Enum.StudioStyleGuideModifier.Default
+						),
+					}),
 				}),
-			}),
 			Label = React.createElement("TextLabel", {
 				BackgroundTransparency = 1,
 				Position = UDim2.fromOffset(22, 0),

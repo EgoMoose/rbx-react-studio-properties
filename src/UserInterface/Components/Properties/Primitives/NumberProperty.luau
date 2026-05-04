@@ -14,6 +14,7 @@ export type Props = {
 	Position: UDim2?,
 
 	FieldName: string,
+	ForceExpanded: boolean?,
 
 	Value: number,
 	OnValueSubmitted: (number) -> ()?,
@@ -68,6 +69,7 @@ local function NumberProperty(props: Props)
 		Position = props.Position,
 
 		FieldName = props.FieldName,
+		ForceExpanded = props.ForceExpanded,
 
 		OnFocusLost = function()
 			setEditingEnabled(false)

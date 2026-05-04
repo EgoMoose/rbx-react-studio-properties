@@ -13,6 +13,7 @@ export type Props = {
 	Position: UDim2?,
 
 	FieldName: string,
+	ForceExpanded: boolean?,
 
 	Value: CFrame,
 	OnValueSubmitted: (CFrame) -> ()?,
@@ -62,6 +63,7 @@ local function CFrameProperty(props: Props)
 
 	return React.createElement(StringProperty, {
 		FieldName = props.FieldName,
+		ForceExpanded = props.ForceExpanded,
 
 		Value = text,
 		OnValueSubmitted = function(newText)
@@ -94,6 +96,7 @@ local function CFrameProperty(props: Props)
 
 			PositionComponent = React.createElement(Vector3Property, {
 				FieldName = "Position",
+				ForceExpanded = props.ForceExpanded,
 
 				Value = Vector3.new(components[1], components[2], components[3]),
 				OnValueSubmitted = function(p)
@@ -108,6 +111,7 @@ local function CFrameProperty(props: Props)
 
 			OrientationComponent = React.createElement(Vector3Property, {
 				FieldName = "Orientation",
+				ForceExpanded = props.ForceExpanded,
 
 				Value = Vector3.new(components[4], components[5], components[6]),
 				OnValueSubmitted = function(p)

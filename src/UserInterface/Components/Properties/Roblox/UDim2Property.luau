@@ -13,6 +13,7 @@ export type Props = {
 	Position: UDim2?,
 
 	FieldName: string,
+	ForceExpanded: boolean?,
 
 	Value: UDim2,
 	OnValueSubmitted: (UDim2) -> ()?,
@@ -50,6 +51,7 @@ local function UDim2Property(props: Props)
 
 	return React.createElement(StringProperty, {
 		FieldName = props.FieldName,
+		ForceExpanded = props.ForceExpanded,
 
 		Value = text,
 		OnValueSubmitted = function(newText)
@@ -83,6 +85,7 @@ local function UDim2Property(props: Props)
 
 			XComponent = React.createElement(UDimProperty, {
 				FieldName = "X",
+				ForceExpanded = props.ForceExpanded,
 
 				Value = UDim.new(components[1], components[2]),
 				OnValueSubmitted = function(ud)
@@ -97,6 +100,7 @@ local function UDim2Property(props: Props)
 
 			YComponent = React.createElement(UDimProperty, {
 				FieldName = "Y",
+				ForceExpanded = props.ForceExpanded,
 
 				Value = UDim.new(components[3], components[4]),
 				OnValueSubmitted = function(ud)
