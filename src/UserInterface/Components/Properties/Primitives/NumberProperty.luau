@@ -148,10 +148,8 @@ local function NumberProperty(props: Props)
 					local newValue = clampValue(value)
 					setNumber(newValue)
 					setText(tostring(newValue))
-				end,
-				OnCompleted = function(value)
 					if props.OnValueSubmitted then
-						props.OnValueSubmitted(clampValue(value))
+						props.OnValueSubmitted(newValue)
 					end
 				end,
 				Disabled = props.Disabled,
