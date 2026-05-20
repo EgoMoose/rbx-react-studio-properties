@@ -1,5 +1,4 @@
 local uiRoot = script:FindFirstAncestor("UserInterface")
-local TextSanitizers = require(uiRoot.Helpers.TextSanitizers)
 
 local pkgs = uiRoot.Parent.Parent
 local StudioComponents = require(pkgs.StudioComponents)
@@ -7,7 +6,7 @@ local React = require(pkgs.React)
 
 local foundationalRoot = script.Parent.Parent.Foundational
 local PropertyLine = require(foundationalRoot.PropertyLine)
-local InputBox = require(foundationalRoot.InputBox)
+local NumberBox = require(foundationalRoot.NumberBox)
 
 export type Props = {
 	AnchorPoint: Vector2?,
@@ -38,31 +37,8 @@ local function NumberProperty(props: Props)
 	local minValue = props.Min or -math.huge
 	local maxValue = props.Max or math.huge
 
-	local step = math.abs(props.Step or 0)
-	local isInteger = step > 0 and step % 1 == 0
-	local isOnlyPositive = minValue >= 0
-
-	local function clampValue(value: number)
-		if step > 0 then
-			-- this function attempts to robustly decimal nudge to avoid
-			-- floating point errors when it comes to step flooring
-			local nudge = math.abs(value) * 1e-14
-			local stepped = math.floor((value / step) + (nudge / step) + 1e-14) * step
-			value = math.round(stepped * 10e10) / 10e10
-		end
-		return math.clamp(value, minValue, maxValue)
-	end
-
-	local number, setNumber = React.useState(clampValue(props.Value))
-	local text, setText = React.useState(tostring(number))
 	local editingEnabled, setEditingEnabled = React.useState(false)
 	local textBoxRef = React.useRef(nil :: TextBox?)
-
-	React.useEffect(function()
-		local clampedValue = clampValue(props.Value)
-		setNumber(clampedValue)
-		setText(tostring(clampedValue))
-	end, { props.Value })
 
 	return React.createElement(PropertyLine, {
 		AnchorPoint = props.AnchorPoint,
@@ -92,46 +68,21 @@ local function NumberProperty(props: Props)
 		Disabled = props.Disabled,
 
 		Interface = React.createElement(React.Fragment, nil, {
-			Input = React.createElement(InputBox, {
+			Input = React.createElement(NumberBox, {
 				Size = if isSliderEnabled then UDim2.fromScale(1 / 3, 1) else UDim2.fromScale(1, 1),
 
-				Text = text,
-				SanitizeText = function(newText, cursor)
-					local sanitized = TextSanitizers.numeric(newText, not isOnlyPositive, not isInteger)
-					if not (cursor == #newText + 1) and #sanitized ~= #newText then
-						cursor = cursor - 1
-					end
-					return sanitized, cursor
-				end,
+				Min = minValue,
+				Max = maxValue,
+				Step = props.Step,
 
-				OnTextChanged = setText,
-				OnTextSubmitted = function(value)
+				OnFocusLost = function()
 					setEditingEnabled(false)
-
-					local newValue = clampValue(tonumber(value) or props.Value)
-					setNumber(newValue)
-					setText(tostring(newValue))
-
-					if props.OnValueSubmitted then
-						props.OnValueSubmitted(newValue)
-					end
 				end,
 
-				OnStepActivated = if step > 0
-					then function(direction)
-						local currentValue = tonumber(text) or props.Value
-						local newValue = clampValue(currentValue + direction * step)
+				Value = props.Value,
+				OnValueSubmitted = props.OnValueSubmitted,
 
-						setNumber(newValue)
-						setText(tostring(newValue))
-
-						if props.OnValueSubmitted then
-							props.OnValueSubmitted(newValue)
-						end
-					end
-					else nil,
-
-				EditingEnabled = editingEnabled,
+				EditingDisabled = not editingEnabled,
 				HighlightMode = if isSliderEnabled then "Editing" else "TextboxFocused",
 
 				Disabled = props.Disabled,
@@ -143,15 +94,8 @@ local function NumberProperty(props: Props)
 				Size = UDim2.fromScale(2 / 3, 1),
 				Min = minValue,
 				Max = maxValue,
-				Value = number,
-				OnChanged = function(value)
-					local newValue = clampValue(value)
-					setNumber(newValue)
-					setText(tostring(newValue))
-					if props.OnValueSubmitted then
-						props.OnValueSubmitted(newValue)
-					end
-				end,
+				Value = props.Value,
+				OnChanged = props.OnValueSubmitted,
 				Disabled = props.Disabled,
 			}),
 		}) :: React.ReactNode,

@@ -162,7 +162,7 @@ local function Color3Property(props: Props)
 						end
 					end,
 
-					EditingEnabled = editingEnabled,
+					EditingDisabled = not editingEnabled,
 					HighlightMode = "TextboxFocused",
 
 					Disabled = disabled,

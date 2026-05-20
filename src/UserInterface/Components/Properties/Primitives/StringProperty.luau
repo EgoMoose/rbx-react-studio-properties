@@ -3,7 +3,7 @@ local React = require(pkgs.React)
 
 local foundationalRoot = script.Parent.Parent.Foundational
 local PropertyLine = require(foundationalRoot.PropertyLine)
-local InputBox = require(foundationalRoot.InputBox)
+local StringBox = require(foundationalRoot.StringBox)
 
 export type Props = {
 	AnchorPoint: Vector2?,
@@ -62,20 +62,23 @@ local function StringProperty(props: Props)
 		Disabled = props.Disabled,
 
 		Interface = React.createElement(React.Fragment, nil, {
-			Input = React.createElement(InputBox, {
+			Input = React.createElement(StringBox, {
 				Size = UDim2.fromScale(1, 1),
 
-				Text = text,
-				OnTextChanged = setText,
-				OnTextSubmitted = function(value)
-					setText(props.Value)
+				OnFocusLost = function()
 					setEditingEnabled(false)
+				end,
+
+				Value = text,
+				OnTextChanged = setText,
+				OnValueSubmitted = function(value)
+					setText(props.Value)
 					if props.OnValueSubmitted then
 						props.OnValueSubmitted(value)
 					end
 				end,
 
-				EditingEnabled = editingEnabled,
+				EditingDisabled = not editingEnabled,
 				HighlightMode = "TextboxFocused",
 
 				Disabled = props.Disabled,
