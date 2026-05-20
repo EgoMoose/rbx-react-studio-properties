@@ -1,5 +1,4 @@
 local uiRoot = script:FindFirstAncestor("UserInterface")
-local TextSanitizers = require(uiRoot.Helpers.TextSanitizers)
 
 local pkgs = uiRoot.Parent.Parent
 local StudioComponents = require(pkgs.StudioComponents)
