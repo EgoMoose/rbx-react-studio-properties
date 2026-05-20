@@ -1,7 +1,6 @@
 local uiRoot = script:FindFirstAncestor("UserInterface")
 local Constants = require(uiRoot.Components.Properties.Foundational.Constants)
-local InputBox = require(uiRoot.Components.Properties.Foundational.InputBox)
-local TextSanitizers = require(uiRoot.Helpers.TextSanitizers)
+local NumberBox = require(uiRoot.Components.Properties.Foundational.NumberBox)
 
 local pkgs = uiRoot.Parent.Parent
 local StudioComponents = require(pkgs.StudioComponents)
@@ -35,33 +34,6 @@ local function NumberInput(props: Props)
 	if props.HighlightOnCapture then
 		editingEnabled = editingEnabledRaw
 	end
-
-	local minValue = props.Min or -math.huge
-	local maxValue = props.Max or math.huge
-
-	local step = math.abs(props.Step or 0)
-	local isInteger = step > 0 and step % 1 == 0
-	local isOnlyPositive = minValue >= 0
-
-	local function clampValue(value: number)
-		if step > 0 then
-			-- this function attempts to robustly decimal nudge to avoid
-			-- floating point errors when it comes to step flooring
-			local nudge = math.abs(value) * 1e-14
-			local stepped = math.floor((value / step) + (nudge / step) + 1e-14) * step
-			value = math.round(stepped * 10e10) / 10e10
-		end
-		return math.clamp(value, minValue, maxValue)
-	end
-
-	local number, setNumber = React.useState(clampValue(props.Value))
-	local text, setText = React.useState(tostring(number))
-
-	React.useEffect(function()
-		local clampedValue = clampValue(props.Value)
-		setNumber(clampedValue)
-		setText(tostring(clampedValue))
-	end, { props.Value })
 
 	return React.createElement("Frame", {
 		BackgroundTransparency = 1,
@@ -118,48 +90,20 @@ local function NumberInput(props: Props)
 				end,
 			}),
 
-			Input = React.createElement(InputBox, {
+			Input = React.createElement(NumberBox, {
 				Size = UDim2.fromScale(1, 1),
 
 				OnFocusLost = function()
 					setEditingEnabled(false)
 				end,
 
-				Text = text,
-				SanitizeText = function(newText, cursor)
-					local sanitized = TextSanitizers.numeric(newText, not isOnlyPositive, not isInteger)
-					if not (cursor == #newText + 1) and #sanitized ~= #newText then
-						cursor = cursor - 1
-					end
-					return sanitized, cursor
-				end,
+				Value = props.Value,
+				OnValueSubmitted = props.OnValueSubmitted,
 
-				OnTextChanged = setText,
-				OnTextSubmitted = function(value)
-					local newValue = clampValue(tonumber(value) or props.Value)
-					setNumber(newValue)
-					setText(tostring(newValue))
+				Min = props.Min,
+				Max = props.Max,
+				Step = props.Step,
 
-					if props.OnValueSubmitted then
-						props.OnValueSubmitted(newValue)
-					end
-				end,
-
-				OnStepActivated = if step > 0
-					then function(direction)
-						local currentValue = tonumber(text) or props.Value
-						local newValue = clampValue(currentValue + direction * step)
-
-						setNumber(newValue)
-						setText(tostring(newValue))
-
-						if props.OnValueSubmitted then
-							props.OnValueSubmitted(newValue)
-						end
-					end
-					else nil,
-
-				EditingEnabled = true,
 				HighlightMode = "TextboxFocused",
 				Disabled = props.Disabled,
 

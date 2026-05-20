@@ -6,6 +6,8 @@ local pkgs = uiRoot.Parent.Parent
 local StudioComponents = require(pkgs.StudioComponents)
 local React = require(pkgs.React)
 
+export type HighlightMode = "Editing" | "TextboxFocused"
+
 export type Props = {
 	AnchorPoint: Vector2?,
 	Position: UDim2?,
@@ -21,8 +23,8 @@ export type Props = {
 
 	OnStepActivated: (number) -> ()?,
 
-	EditingEnabled: boolean,
-	HighlightMode: ("Editing" | "TextboxFocused")?,
+	EditingDisabled: boolean?,
+	HighlightMode: HighlightMode?,
 
 	LayoutOrder: number?,
 	ZIndex: number?,
@@ -30,7 +32,7 @@ export type Props = {
 }
 
 local function InputBox(props: Props, ref: React.Ref<TextBox?>?)
-	local isEditing = props.EditingEnabled and not props.Disabled
+	local isEditing = not props.EditingDisabled and not props.Disabled
 
 	local theme = StudioComponents.useTheme()
 	local isFocused, setIsFocused = React.useState(false)

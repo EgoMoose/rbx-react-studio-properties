@@ -135,7 +135,6 @@ local function NumberInput(props: Props)
 						setEditingEnabled(false)
 					end,
 
-					EditingEnabled = true,
 					Disabled = props.Disabled,
 
 					ref = textBoxRef,
