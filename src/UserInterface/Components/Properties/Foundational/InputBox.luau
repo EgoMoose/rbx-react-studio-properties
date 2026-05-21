@@ -9,6 +9,9 @@ local React = require(pkgs.React)
 export type HighlightMode = "Editing" | "TextboxFocused"
 
 export type Props = {
+	BackgroundTransparency: number?,
+	BackgroundColor3: Color3?,
+
 	AnchorPoint: Vector2?,
 	Position: UDim2?,
 	Size: UDim2?,
@@ -63,7 +66,8 @@ local function InputBox(props: Props, ref: React.Ref<TextBox?>?)
 				ClipsDescendants = true,
 
 				BorderSizePixel = 0,
-				BackgroundColor3 = theme:GetColor(
+				BackgroundTransparency = props.BackgroundTransparency,
+				BackgroundColor3 = props.BackgroundColor3 or theme:GetColor(
 					Enum.StudioStyleGuideColor.InputFieldBackground,
 					Enum.StudioStyleGuideModifier.Selected
 				),

@@ -7,6 +7,9 @@ local React = require(pkgs.React)
 local InputBox = require(script.Parent.InputBox)
 
 export type Props = {
+	BackgroundTransparency: number?,
+	BackgroundColor3: Color3?,
+
 	AnchorPoint: Vector2?,
 	Position: UDim2?,
 	Size: UDim2?,
@@ -71,6 +74,9 @@ local function NumberBox(props: Props, ref: React.Ref<TextBox?>?)
 	end, { props.Value, setValue } :: { any })
 
 	return React.createElement(InputBox, {
+		BackgroundTransparency = props.BackgroundTransparency,
+		BackgroundColor3 = props.BackgroundColor3,
+
 		AnchorPoint = props.AnchorPoint,
 		Position = props.Position,
 		Size = props.Size,
