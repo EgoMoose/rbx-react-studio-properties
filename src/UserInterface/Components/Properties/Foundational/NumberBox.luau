@@ -21,9 +21,11 @@ export type Props = {
 	Min: number?,
 	Max: number?,
 	Step: number?,
+	StepButtonsDisabled: boolean?,
 
 	OnFocus: (TextBox) -> ()?,
 	OnFocusLost: (TextBox) -> ()?,
+	HighlightOnFocus: boolean?,
 
 	EditingDisabled: boolean?,
 	HighlightMode: InputBox.HighlightMode?,
@@ -83,6 +85,7 @@ local function NumberBox(props: Props, ref: React.Ref<TextBox?>?)
 
 		OnFocus = props.OnFocus,
 		OnFocusLost = props.OnFocusLost,
+		HighlightOnFocus = props.HighlightOnFocus,
 
 		Text = text,
 		SanitizeText = function(newText, cursor)
@@ -103,7 +106,7 @@ local function NumberBox(props: Props, ref: React.Ref<TextBox?>?)
 			setValue(newValue, true)
 		end,
 
-		OnStepActivated = if step > 0
+		OnStepActivated = if step > 0 and not props.StepButtonsDisabled
 			then function(direction)
 				local currentValue = tonumber(text) or props.Value
 				local newValue = clampValue(currentValue + direction * step, step, minValue, maxValue)

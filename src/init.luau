@@ -10,6 +10,7 @@ return {
 	PropertyGroup = require(Properties.Foundational.PropertyGroup),
 
 	-- Input Boxes
+	InputBox = require(Properties.Foundational.InputBox),
 	StringBox = require(Properties.Foundational.StringBox),
 	NumberBox = require(Properties.Foundational.NumberBox),
 
