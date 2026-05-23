@@ -11,7 +11,7 @@ export type Props = {
 	Size: UDim2?,
 
 	FieldName: string,
-	HighlightOnCapture: boolean?,
+	HighlightOnFocus: boolean?,
 
 	HSV: { number },
 	SetHSV: ({ number }) -> (),
@@ -20,15 +20,9 @@ export type Props = {
 	Disabled: boolean?,
 }
 
-local function NumberInput(props: Props)
+local function HexInput(props: Props)
 	local theme = StudioComponents.useTheme()
 	local isHexFocused, setIsHexFocused = React.useState(false)
-	local editingEnabledRaw, setEditingEnabled = React.useState(false)
-
-	local editingEnabled = true
-	if props.HighlightOnCapture then
-		editingEnabled = editingEnabledRaw
-	end
 
 	local color = Color3.fromHSV(props.HSV[1], props.HSV[2], props.HSV[3])
 	local text, setText = React.useState("#" .. color:ToHex():lower())
@@ -94,25 +88,6 @@ local function NumberInput(props: Props)
 				Position = UDim2.fromScale(0.5, 0.5),
 				Size = UDim2.new(1, -4, 1, -4),
 			}, {
-				InputSink = React.createElement("TextBox", {
-					BackgroundTransparency = 1,
-					Text = "",
-					Size = UDim2.fromScale(1, 1),
-					Visible = not editingEnabled,
-					ZIndex = 2,
-
-					[React.Event.Focused] = function()
-						local textBox = textBoxRef.current
-						if not editingEnabled and textBox and not textBox:IsFocused() then
-							textBox:CaptureFocus()
-							textBox.SelectionStart = 1
-							textBox.CursorPosition = #textBox.Text + 1
-						end
-
-						setEditingEnabled(true)
-					end,
-				}),
-
 				Input = React.createElement(InputBox, {
 					Size = UDim2.fromScale(1, 1),
 
@@ -132,9 +107,9 @@ local function NumberInput(props: Props)
 					end,
 					OnFocusLost = function()
 						setIsHexFocused(false)
-						setEditingEnabled(false)
 					end,
 
+					HighlightOnFocus = props.HighlightOnFocus,
 					Disabled = props.Disabled,
 
 					ref = textBoxRef,
@@ -144,4 +119,4 @@ local function NumberInput(props: Props)
 	})
 end
 
-return NumberInput
+return HexInput

@@ -12,7 +12,7 @@ export type Props = {
 	Size: UDim2?,
 
 	FieldName: string,
-	HighlightOnCapture: boolean?,
+	HighlightOnFocus: boolean?,
 
 	Value: number,
 	OnValueSubmitted: (number) -> ()?,
@@ -27,13 +27,7 @@ export type Props = {
 
 local function NumberInput(props: Props)
 	local theme = StudioComponents.useTheme()
-	local editingEnabledRaw, setEditingEnabled = React.useState(false)
 	local textBoxRef = React.useRef(nil :: TextBox?)
-
-	local editingEnabled = true
-	if props.HighlightOnCapture then
-		editingEnabled = editingEnabledRaw
-	end
 
 	return React.createElement("Frame", {
 		BackgroundTransparency = 1,
@@ -71,31 +65,8 @@ local function NumberInput(props: Props)
 			Position = UDim2.fromScale(0.5, 0),
 			Size = UDim2.fromScale(0.5, 1),
 		}, {
-			InputSink = React.createElement("TextBox", {
-				BackgroundTransparency = 1,
-				Text = "",
-				Size = UDim2.new(1, -Constants.LineHeight, 1, 0),
-				Visible = not editingEnabled,
-				ZIndex = 2,
-
-				[React.Event.Focused] = function()
-					local textBox = textBoxRef.current
-					if not editingEnabled and textBox and not textBox:IsFocused() then
-						textBox:CaptureFocus()
-						textBox.SelectionStart = 1
-						textBox.CursorPosition = #textBox.Text + 1
-					end
-
-					setEditingEnabled(true)
-				end,
-			}),
-
 			Input = React.createElement(NumberBox, {
 				Size = UDim2.fromScale(1, 1),
-
-				OnFocusLost = function()
-					setEditingEnabled(false)
-				end,
 
 				Value = props.Value,
 				OnValueSubmitted = props.OnValueSubmitted,
@@ -105,6 +76,7 @@ local function NumberInput(props: Props)
 				Step = props.Step,
 
 				HighlightMode = "TextboxFocused",
+				HighlightOnFocus = props.HighlightOnFocus,
 				Disabled = props.Disabled,
 
 				ref = textBoxRef,

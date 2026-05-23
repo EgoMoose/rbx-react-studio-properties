@@ -18,6 +18,7 @@ export type Props = {
 
 	OnFocus: (TextBox) -> ()?,
 	OnFocusLost: (TextBox) -> ()?,
+	HighlightOnFocus: boolean?,
 
 	EditingDisabled: boolean?,
 	HighlightMode: InputBox.HighlightMode?,
@@ -56,6 +57,7 @@ local function StringBox(props: Props, ref: React.Ref<TextBox?>?)
 
 		OnFocus = props.OnFocus,
 		OnFocusLost = props.OnFocusLost,
+		HighlightOnFocus = props.HighlightOnFocus,
 
 		Text = text,
 		OnTextSubmitted = props.OnValueSubmitted,

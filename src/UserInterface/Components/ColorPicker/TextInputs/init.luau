@@ -4,7 +4,7 @@ local React = require(pkgs.React)
 local NumberInput = require(script.NumberInput)
 local HexInput = require(script.HexInput)
 
-local HIGHLIGHT_ON_CAPTURE = true
+local HIGHLIGHT_ON_FOCUS = true
 
 export type Props = {
 	AnchorPoint: Vector2?,
@@ -45,7 +45,7 @@ local function TextInputs(props: Props)
 				Size = UDim2.new(1, 0, 0, 22),
 
 				FieldName = "Hue:",
-				HighlightOnCapture = HIGHLIGHT_ON_CAPTURE,
+				HighlightOnFocus = HIGHLIGHT_ON_FOCUS,
 
 				Max = 255,
 				Min = 0,
@@ -66,7 +66,7 @@ local function TextInputs(props: Props)
 				Size = UDim2.new(1, 0, 0, 22),
 
 				FieldName = "Sat:",
-				HighlightOnCapture = HIGHLIGHT_ON_CAPTURE,
+				HighlightOnFocus = HIGHLIGHT_ON_FOCUS,
 
 				Max = 255,
 				Min = 0,
@@ -87,7 +87,7 @@ local function TextInputs(props: Props)
 				Size = UDim2.new(1, 0, 0, 22),
 
 				FieldName = "Val:",
-				HighlightOnCapture = HIGHLIGHT_ON_CAPTURE,
+				HighlightOnFocus = HIGHLIGHT_ON_FOCUS,
 
 				Max = 255,
 				Min = 0,
@@ -120,7 +120,7 @@ local function TextInputs(props: Props)
 				Size = UDim2.new(1, 0, 0, 22),
 
 				FieldName = "Red:",
-				HighlightOnCapture = HIGHLIGHT_ON_CAPTURE,
+				HighlightOnFocus = HIGHLIGHT_ON_FOCUS,
 
 				Max = 255,
 				Min = 0,
@@ -139,7 +139,7 @@ local function TextInputs(props: Props)
 				Size = UDim2.new(1, 0, 0, 22),
 
 				FieldName = "Green:",
-				HighlightOnCapture = HIGHLIGHT_ON_CAPTURE,
+				HighlightOnFocus = HIGHLIGHT_ON_FOCUS,
 
 				Max = 255,
 				Min = 0,
@@ -158,7 +158,7 @@ local function TextInputs(props: Props)
 				Size = UDim2.new(1, 0, 0, 22),
 
 				FieldName = "Blue:",
-				HighlightOnCapture = HIGHLIGHT_ON_CAPTURE,
+				HighlightOnFocus = HIGHLIGHT_ON_FOCUS,
 
 				Max = 255,
 				Min = 0,
@@ -180,7 +180,7 @@ local function TextInputs(props: Props)
 			Size = UDim2.new(0.75, 0, 0, 24),
 
 			FieldName = "Hex:",
-			HighlightOnCapture = HIGHLIGHT_ON_CAPTURE,
+			HighlightOnFocus = HIGHLIGHT_ON_FOCUS,
 
 			HSV = props.HSV,
 			SetHSV = props.SetHSV,
