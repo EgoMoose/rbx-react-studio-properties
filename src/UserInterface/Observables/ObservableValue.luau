@@ -59,11 +59,11 @@ function ObservableValueClass.use<T>(self: ObservableValue<T>)
 		return function()
 			connection:Disconnect()
 		end
-	end, { self })
+	end, { self :: any })
 
 	local updateValue = React.useCallback(function(callback: (T) -> T)
 		self:update()(callback)
-	end, { self, state } :: { any })
+	end, { self :: any, state :: any })
 
 	return valueRef.current, updateValue
 end
