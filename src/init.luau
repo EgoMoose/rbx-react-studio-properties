@@ -5,7 +5,9 @@ return {
 	PluginContext = require(uiRoot.Contexts.PluginContext),
 
 	VerticalScroll = require(uiRoot.Components.VerticalScroll),
+
 	ColorPicker = require(uiRoot.Components.ColorPicker),
+	useColorPickerOpen = require(uiRoot.Components.ColorPicker.useColorPickerOpen),
 
 	PropertyGroup = require(Properties.Foundational.PropertyGroup),
 
