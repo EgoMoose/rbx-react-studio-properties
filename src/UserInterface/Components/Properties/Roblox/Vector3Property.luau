@@ -44,9 +44,6 @@ local function Vector3Property(props: Props)
 
 	React.useEffect(function()
 		setText(toText(components))
-		if props.OnValueSubmitted then
-			props.OnValueSubmitted(fromArray(components))
-		end
 	end, { components })
 
 	return React.createElement(StringProperty, {
@@ -60,8 +57,13 @@ local function Vector3Property(props: Props)
 			for i = 1, 3 do
 				newComponents[i] = tonumber(splitByComma[i]) or 0
 			end
+
 			updateComponents(newComponents)
 			setText(toText(newComponents))
+
+			if props.OnValueSubmitted then
+				props.OnValueSubmitted(fromArray(newComponents))
+			end
 		end,
 
 		Indent = indent,
@@ -87,6 +89,9 @@ local function Vector3Property(props: Props)
 				OnValueSubmitted = function(n)
 					local newComponents = updateComponents({ [1] = n })
 					setText(toText(newComponents))
+					if props.OnValueSubmitted then
+						props.OnValueSubmitted(fromArray(newComponents))
+					end
 				end,
 
 				Indent = indent + 1,
@@ -101,6 +106,9 @@ local function Vector3Property(props: Props)
 				OnValueSubmitted = function(n)
 					local newComponents = updateComponents({ [2] = n })
 					setText(toText(newComponents))
+					if props.OnValueSubmitted then
+						props.OnValueSubmitted(fromArray(newComponents))
+					end
 				end,
 
 				Indent = indent + 1,
@@ -115,6 +123,9 @@ local function Vector3Property(props: Props)
 				OnValueSubmitted = function(n)
 					local newComponents = updateComponents({ [3] = n })
 					setText(toText(newComponents))
+					if props.OnValueSubmitted then
+						props.OnValueSubmitted(fromArray(newComponents))
+					end
 				end,
 
 				Indent = indent + 1,

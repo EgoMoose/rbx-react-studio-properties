@@ -56,9 +56,6 @@ local function CFrameProperty(props: Props)
 
 	React.useEffect(function()
 		setText(toText(components))
-		if props.OnValueSubmitted then
-			props.OnValueSubmitted(fromArray(components))
-		end
 	end, { components })
 
 	return React.createElement(StringProperty, {
@@ -76,6 +73,10 @@ local function CFrameProperty(props: Props)
 
 			updateComponents(newComponents)
 			setText(toText(newComponents))
+
+			if props.OnValueSubmitted then
+				props.OnValueSubmitted(fromArray(newComponents))
+			end
 		end,
 
 		Indent = indent,
@@ -102,6 +103,9 @@ local function CFrameProperty(props: Props)
 				OnValueSubmitted = function(p)
 					local newComponents = updateComponents({ [1] = p.X, [2] = p.Y, [3] = p.Z })
 					setText(toText(newComponents))
+					if props.OnValueSubmitted then
+						props.OnValueSubmitted(fromArray(newComponents))
+					end
 				end,
 
 				Indent = indent + 1,
@@ -117,6 +121,9 @@ local function CFrameProperty(props: Props)
 				OnValueSubmitted = function(p)
 					local newComponents = updateComponents({ [4] = p.X, [5] = p.Y, [6] = p.Z })
 					setText(toText(newComponents))
+					if props.OnValueSubmitted then
+						props.OnValueSubmitted(fromArray(newComponents))
+					end
 				end,
 
 				Indent = indent + 1,

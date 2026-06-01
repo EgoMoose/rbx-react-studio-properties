@@ -44,9 +44,6 @@ local function UDimProperty(props: Props)
 
 	React.useEffect(function()
 		setText(toText(components))
-		if props.OnValueSubmitted then
-			props.OnValueSubmitted(fromArray(components))
-		end
 	end, { components })
 
 	return React.createElement(StringProperty, {
@@ -63,6 +60,10 @@ local function UDimProperty(props: Props)
 
 			updateComponents(newComponents)
 			setText(toText(newComponents))
+
+			if props.OnValueSubmitted then
+				props.OnValueSubmitted(fromArray(newComponents))
+			end
 		end,
 
 		Indent = indent,
@@ -89,6 +90,9 @@ local function UDimProperty(props: Props)
 				OnValueSubmitted = function(n)
 					local newComponents = updateComponents({ [1] = n })
 					setText(toText(newComponents))
+					if props.OnValueSubmitted then
+						props.OnValueSubmitted(fromArray(newComponents))
+					end
 				end,
 
 				Indent = indent + 1,
@@ -107,6 +111,9 @@ local function UDimProperty(props: Props)
 				OnValueSubmitted = function(n)
 					local newComponents = updateComponents({ [2] = n })
 					setText(toText(newComponents))
+					if props.OnValueSubmitted then
+						props.OnValueSubmitted(fromArray(newComponents))
+					end
 				end,
 
 				Indent = indent + 1,

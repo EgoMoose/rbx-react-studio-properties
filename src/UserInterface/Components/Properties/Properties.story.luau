@@ -140,7 +140,10 @@ local function Widget(props: Props)
 						FieldName = "Vector2",
 
 						Value = value,
-						OnValueSubmitted = setValue,
+						OnValueSubmitted = function(newValue)
+							print("?")
+							setValue(newValue)
+						end,
 
 						LayoutOrder = 1,
 						Disabled = props.Disabled,
