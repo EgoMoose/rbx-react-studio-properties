@@ -7,7 +7,7 @@ return {
 	VerticalScroll = require(uiRoot.Components.VerticalScroll),
 
 	ColorPicker = require(uiRoot.Components.ColorPicker),
-	useColorPickerOpen = require(uiRoot.Components.ColorPicker.useColorPickerOpen),
+	useColorPickerOpen = require(uiRoot.Hooks.useColorPickerOpen),
 
 	PropertyGroup = require(Properties.Foundational.PropertyGroup),
 
