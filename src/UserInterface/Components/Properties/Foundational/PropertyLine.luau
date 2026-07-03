@@ -107,7 +107,7 @@ local function PropertyLine(props: Props)
 		Body = React.createElement("Frame", {
 			BackgroundColor3 = getBackgroundColor(theme, isHovered, isFocused and not props.Disabled),
 			BorderColor3 = theme:GetColor(Enum.StudioStyleGuideColor.Border),
-			BorderSizePixel = 0,
+			BorderSizePixel = 1,
 			Size = UDim2.new(1, 0, 0, Constants.LineHeight),
 
 			[React.Event.MouseEnter] = function()

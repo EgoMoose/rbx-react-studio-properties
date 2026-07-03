@@ -31,6 +31,12 @@ local function Widget(props: Props)
 				SortOrder = Enum.SortOrder.LayoutOrder,
 				Padding = UDim.new(0, 0),
 			}),
+			UIPadding = true and React.createElement("UIPadding", {
+				PaddingLeft = UDim.new(0, 4),
+				PaddingRight = UDim.new(0, 4),
+				PaddingTop = UDim.new(0, 4),
+				PaddingBottom = UDim.new(0, 4),
+			}),
 
 			PrimitivesGroup = React.createElement(StudioProperties.PropertyGroup, {
 				GroupName = "Primitives",
