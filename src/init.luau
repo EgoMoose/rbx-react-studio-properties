@@ -9,6 +9,7 @@ return {
 	ColorPicker = require(uiRoot.Components.ColorPicker),
 	useColorPickerOpen = require(uiRoot.Hooks.useColorPickerOpen),
 
+	PropertyLine = require(Properties.Foundational.PropertyLine),
 	PropertyGroup = require(Properties.Foundational.PropertyGroup),
 
 	-- Input Boxes
