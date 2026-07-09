@@ -1,4 +1,3 @@
-local RunService = game:GetService("RunService")
 local uiRoot = script:FindFirstAncestor("UserInterface")
 local Constants = require(script.Parent.Constants)
 local Assets = require(uiRoot.Assets)
@@ -12,6 +11,7 @@ export type HighlightMode = "Editing" | "TextboxFocused"
 export type Props = {
 	BackgroundTransparency: number?,
 	BackgroundColor3: Color3?,
+	BorderSizePixel: number?,
 
 	AnchorPoint: Vector2?,
 	Position: UDim2?,
@@ -90,8 +90,10 @@ local function InputBox(props: Props, ref: React.Ref<TextBox?>?)
 				TextBox = React.createElement("TextBox", {
 					ClipsDescendants = true,
 
-					BorderSizePixel = 0,
+					BorderSizePixel = props.BorderSizePixel,
 					BackgroundTransparency = props.BackgroundTransparency,
+
+					BorderColor3 = theme:GetColor(Enum.StudioStyleGuideColor.Border),
 					BackgroundColor3 = props.BackgroundColor3 or theme:GetColor(
 						Enum.StudioStyleGuideColor.InputFieldBackground,
 						Enum.StudioStyleGuideModifier.Selected
@@ -245,9 +247,19 @@ local function InputBox(props: Props, ref: React.Ref<TextBox?>?)
 
 		DisplayLabel = React.createElement("TextLabel", {
 			Visible = not isEditing,
-			ClipsDescendants = true,
-			BackgroundTransparency = 1,
 			Size = UDim2.fromScale(1, 1),
+
+			BorderSizePixel = props.BorderSizePixel,
+			BorderColor3 = theme:GetColor(Enum.StudioStyleGuideColor.Border),
+
+			BackgroundTransparency = props.BackgroundTransparency,
+			BackgroundColor3 = props.BackgroundColor3 or theme:GetColor(
+				Enum.StudioStyleGuideColor.InputFieldBackground,
+				if props.Disabled
+					then Enum.StudioStyleGuideModifier.Disabled
+					else Enum.StudioStyleGuideModifier.Selected
+			),
+
 			FontFace = Font.fromName("SourceSansPro"),
 			TextYAlignment = Enum.TextYAlignment.Center,
 			TextXAlignment = Enum.TextXAlignment.Left,
