@@ -254,7 +254,7 @@ local function InputBox(props: Props, ref: React.Ref<TextBox?>?)
 
 			BackgroundTransparency = props.BackgroundTransparency,
 			BackgroundColor3 = props.BackgroundColor3 or theme:GetColor(
-				Enum.StudioStyleGuideColor.InputFieldBackground,
+				Enum.StudioStyleGuideColor.MainBackground,
 				if props.Disabled
 					then Enum.StudioStyleGuideModifier.Disabled
 					else Enum.StudioStyleGuideModifier.Selected
