@@ -7,6 +7,7 @@ local InputBox = require(script.Parent.InputBox)
 export type Props = {
 	BackgroundTransparency: number?,
 	BackgroundColor3: Color3?,
+	BorderSizePixel: number?,
 
 	AnchorPoint: Vector2?,
 	Position: UDim2?,
@@ -50,6 +51,7 @@ local function StringBox(props: Props, ref: React.Ref<TextBox?>?)
 	return React.createElement(InputBox, {
 		BackgroundTransparency = props.BackgroundTransparency,
 		BackgroundColor3 = props.BackgroundColor3,
+		BorderSizePixel = props.BorderSizePixel,
 
 		AnchorPoint = props.AnchorPoint,
 		Position = props.Position,

@@ -34,6 +34,8 @@ local function Widget(props: Props)
 				Value = value,
 				OnValueSubmitted = setValue,
 				HighlightOnFocus = true,
+
+				Disabled = props.Disabled,
 			})
 		end),
 
@@ -47,6 +49,8 @@ local function Widget(props: Props)
 				Value = value,
 				OnValueSubmitted = setValue,
 				HighlightOnFocus = true,
+
+				Disabled = props.Disabled,
 			})
 		end),
 
@@ -60,6 +64,8 @@ local function Widget(props: Props)
 				Value = value,
 				OnValueSubmitted = setValue,
 				HighlightOnFocus = false,
+
+				Disabled = props.Disabled,
 			})
 		end),
 
@@ -76,6 +82,8 @@ local function Widget(props: Props)
 				Value = value,
 				OnValueSubmitted = setValue,
 				HighlightOnFocus = true,
+
+				Disabled = props.Disabled,
 			})
 		end),
 	})
