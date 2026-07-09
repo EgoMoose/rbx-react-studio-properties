@@ -245,35 +245,39 @@ local function InputBox(props: Props, ref: React.Ref<TextBox?>?)
 			}),
 		}),
 
-		DisplayLabel = React.createElement("TextLabel", {
-			Visible = not isEditing,
+		Display = React.createElement("Frame", {
+			BackgroundTransparency = 1,
 			Size = UDim2.fromScale(1, 1),
-
-			BorderSizePixel = props.BorderSizePixel,
-			BorderColor3 = theme:GetColor(Enum.StudioStyleGuideColor.Border),
-
-			BackgroundTransparency = props.BackgroundTransparency,
-			BackgroundColor3 = props.BackgroundColor3 or theme:GetColor(
-				Enum.StudioStyleGuideColor.MainBackground,
-				if props.Disabled
-					then Enum.StudioStyleGuideModifier.Disabled
-					else Enum.StudioStyleGuideModifier.Selected
-			),
-
-			FontFace = Font.fromName("SourceSansPro"),
-			TextYAlignment = Enum.TextYAlignment.Center,
-			TextXAlignment = Enum.TextXAlignment.Left,
-			TextTruncate = Enum.TextTruncate.AtEnd,
-			TextColor3 = theme:GetColor(
-				Enum.StudioStyleGuideColor.MainText,
-				if props.Disabled then Enum.StudioStyleGuideModifier.Disabled else nil
-			),
-			Text = props.Text,
-			TextSize = 14,
+			Visible = not isEditing,
 		}, {
-			UIPadding = React.createElement("UIPadding", {
-				PaddingLeft = UDim.new(0, 4),
-				PaddingRight = UDim.new(0, 4),
+			UIStroke = React.createElement("UIStroke", {
+				ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
+				LineJoinMode = Enum.LineJoinMode.Miter,
+				BorderStrokePosition = Enum.BorderStrokePosition.Outer,
+				StrokeSizingMode = Enum.StrokeSizingMode.FixedSize,
+				Color = theme:GetColor(Enum.StudioStyleGuideColor.Border),
+				Transparency = props.BackgroundTransparency,
+				Thickness = props.BorderSizePixel,
+			}),
+
+			Label = React.createElement("TextLabel", {
+				Size = UDim2.fromScale(1, 1),
+				BackgroundTransparency = 1,
+				FontFace = Font.fromName("SourceSansPro"),
+				TextYAlignment = Enum.TextYAlignment.Center,
+				TextXAlignment = Enum.TextXAlignment.Left,
+				TextTruncate = Enum.TextTruncate.AtEnd,
+				TextColor3 = theme:GetColor(
+					Enum.StudioStyleGuideColor.MainText,
+					if props.Disabled then Enum.StudioStyleGuideModifier.Disabled else nil
+				),
+				Text = props.Text,
+				TextSize = 14,
+			}, {
+				UIPadding = React.createElement("UIPadding", {
+					PaddingLeft = UDim.new(0, 4),
+					PaddingRight = UDim.new(0, 4),
+				}),
 			}),
 		}),
 	})
