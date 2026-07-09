@@ -52,10 +52,18 @@ local function Vector3Property(props: Props)
 
 		Value = text,
 		OnValueSubmitted = function(newText)
-			local newComponents = {}
+			local newComponents = table.clone(components)
 			local splitByComma = newText:split(",")
-			for i = 1, 3 do
-				newComponents[i] = tonumber(splitByComma[i]) or 0
+
+			if #splitByComma == 1 then
+				local component = tonumber(splitByComma[1])
+				if component then
+					newComponents = table.create(3, component)
+				end
+			else
+				for i = 1, 3 do
+					newComponents[i] = tonumber(splitByComma[i]) or 0
+				end
 			end
 
 			updateComponents(newComponents)

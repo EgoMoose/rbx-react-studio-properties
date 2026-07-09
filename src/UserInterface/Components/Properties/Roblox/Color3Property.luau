@@ -149,14 +149,33 @@ local function Color3Property(props: Props)
 					Text = if editingEnabled then text else `[{text}]`,
 					OnTextChanged = setText,
 					OnTextSubmitted = function(newText)
-						local newComponents = {}
+						local newComponents = table.clone(toArray(props.Value))
 						local splitByComma = newText:split(",")
-						for i = 1, 3 do
-							newComponents[i] = math.clamp(math.floor(tonumber(splitByComma[i]) or 0), 0, 255)
+
+						if #splitByComma == 1 then
+							local component = tonumber(splitByComma[1])
+							if component then
+								newComponents = table.create(3, math.clamp(math.floor(component), 0, 255))
+							end
+						else
+							local tmp = {}
+							local count = 0
+							for i = 1, 3 do
+								local component = tonumber(splitByComma[i])
+								if component then
+									count = count + 1
+									tmp[i] = math.clamp(math.floor(component), 0, 255)
+								end
+							end
+
+							if count == 3 then
+								newComponents = tmp
+							end
 						end
 
 						setText(toText(newComponents))
 						setEditingEnabled(false)
+
 						if props.OnValueSubmitted then
 							props.OnValueSubmitted(fromArray(newComponents))
 						end
