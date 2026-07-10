@@ -21,6 +21,7 @@ local function Widget(props: Props)
 	}, {
 		Content = React.createElement(VerticalScroll, {
 			Size = UDim2.fromScale(1, 1),
+			CanvasOffset = UDim2.fromOffset(0, -1),
 			ScrollBarTransparency = 0.7,
 			ScrollInset = UDim.new(0, -2),
 			ScrollBarFades = true,

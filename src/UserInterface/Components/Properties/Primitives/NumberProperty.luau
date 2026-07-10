@@ -70,6 +70,7 @@ local function NumberProperty(props: Props)
 		Interface = React.createElement(React.Fragment, nil, {
 			Input = React.createElement(NumberBox, {
 				Size = if isSliderEnabled then UDim2.fromScale(1 / 3, 1) else UDim2.fromScale(1, 1),
+				BorderSizePixel = if editingEnabled then 1 else 0,
 
 				Min = minValue,
 				Max = maxValue,
