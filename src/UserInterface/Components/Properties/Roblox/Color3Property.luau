@@ -145,6 +145,7 @@ local function Color3Property(props: Props)
 				Input = React.createElement(InputBox, {
 					Position = UDim2.fromOffset(Constants.LineHeight, 0),
 					Size = UDim2.new(1, -Constants.LineHeight, 1, 0),
+					BorderSizePixel = if editingEnabled then 1 else 0,
 
 					Text = if editingEnabled then text else `[{text}]`,
 					OnTextChanged = setText,
