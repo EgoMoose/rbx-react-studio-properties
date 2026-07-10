@@ -1,3 +1,4 @@
+local UserInputService = game:GetService("UserInputService")
 local uiRoot = script:FindFirstAncestor("UserInterface")
 local Constants = require(script.Parent.Constants)
 local Observables = require(uiRoot.Observables)
@@ -6,6 +7,7 @@ local Assets = require(uiRoot.Assets)
 local pkgs = uiRoot.Parent.Parent
 local StudioComponents = require(pkgs.StudioComponents)
 local React = require(pkgs.React)
+local Trove = require(pkgs.Trove)
 
 export type Props = {
 	AnchorPoint: Vector2?,
@@ -57,23 +59,33 @@ local function PropertyLine(props: Props)
 	end
 
 	local inputObjectRef = React.useRef(nil :: InputObject?)
+	local bodyRef = React.useRef(nil :: GuiObject?)
+	local isHoveredRef = React.useRef(isHovered)
 
 	React.useEffect(function()
-		local connection
-		if inputObjectRef.current and isFocused then
-			connection = inputObjectRef.current:GetPropertyChangedSignal("UserInputState"):Connect(function()
-				if inputObjectRef.current.UserInputState == Enum.UserInputState.Begin and not isHovered then
+		local trove = Trove.new()
+		if isFocused then
+			local input = inputObjectRef.current
+			if input then
+				trove:Add(input:GetPropertyChangedSignal("UserInputState"):Connect(function()
+					if not isHoveredRef.current and input.UserInputState == Enum.UserInputState.Begin then
+						setIsFocused(false)
+					end
+				end))
+			end
+
+			local pluginGui = bodyRef.current and bodyRef.current:FindFirstAncestorWhichIsA("PluginGui")
+			if pluginGui then
+				trove:Add(pluginGui.WindowFocusReleased:Connect(function()
 					setIsFocused(false)
-				end
-			end)
+				end))
+			end
 		end
 
 		return function()
-			if connection then
-				connection:Disconnect()
-			end
+			trove:Destroy()
 		end
-	end, { isFocused, isHovered })
+	end, { isFocused })
 
 	React.useEffect(function()
 		if props.Disabled then
@@ -111,13 +123,16 @@ local function PropertyLine(props: Props)
 			Size = UDim2.new(1, 0, 0, Constants.LineHeight),
 
 			[React.Event.MouseEnter] = function()
+				isHoveredRef.current = true
 				setIsHovered(true)
 			end,
 			[React.Event.MouseLeave] = function()
+				isHoveredRef.current = false
 				setIsHovered(false)
 			end,
 
 			LayoutOrder = 1,
+			ref = bodyRef,
 		}, {
 			Click = React.createElement("Frame", {
 				Active = false,
