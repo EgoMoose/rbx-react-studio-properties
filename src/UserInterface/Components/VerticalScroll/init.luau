@@ -20,6 +20,8 @@ export type Props = {
 	GradientHeight: number?,
 	GradientColor: Color3?,
 
+	CanvasOffset: UDim2?,
+
 	LayoutOrder: number?,
 	ZIndex: number?,
 	Disabled: boolean?,
@@ -43,6 +45,7 @@ local function VerticalScroll(props: Props)
 
 	local contentSize = useRefProperty(contentRef, "AbsoluteSize", Vector2.zero)
 	local canvasPosition = useRefProperty(scrollRef, "CanvasPosition", Vector2.zero)
+	local canvasOffset = props.CanvasOffset or UDim2.new(0, 0, 0, 0)
 
 	local scrollInset = props.ScrollInset or UDim.new(0, 0)
 	local scrollVisibleTransparency = props.ScrollBarTransparency or 0
@@ -98,7 +101,7 @@ local function VerticalScroll(props: Props)
 			BorderSizePixel = 0,
 			BackgroundTransparency = 1,
 			Size = UDim2.new(1 + scrollInset.Scale, scrollInset.Offset, 1, 0),
-			CanvasSize = UDim2.fromOffset(0, contentSize.Y),
+			CanvasSize = canvasOffset + UDim2.fromOffset(0, contentSize.Y),
 
 			ScrollingEnabled = not props.Disabled,
 			ScrollBarThickness = props.ScrollBarThickness or 4,
