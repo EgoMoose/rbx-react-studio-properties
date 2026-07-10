@@ -1,4 +1,3 @@
-local UserInputService = game:GetService("UserInputService")
 local uiRoot = script:FindFirstAncestor("UserInterface")
 local Constants = require(script.Parent.Constants)
 local Observables = require(uiRoot.Observables)
