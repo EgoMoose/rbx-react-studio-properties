@@ -15,6 +15,7 @@ export type Props = {
 	ScrollInset: UDim?,
 	ScrollBarThickness: number?,
 	ScrollBarTransparency: number?,
+	ScrollBarPosition: Enum.VerticalScrollBarPosition?,
 	ScrollBarFades: boolean?,
 
 	GradientHeight: number?,
@@ -46,6 +47,13 @@ local function VerticalScroll(props: Props)
 	local contentSize = useRefProperty(contentRef, "AbsoluteSize", Vector2.zero)
 	local canvasPosition = useRefProperty(scrollRef, "CanvasPosition", Vector2.zero)
 	local canvasOffset = props.CanvasOffset or UDim2.new(0, 0, 0, 0)
+
+	local insetSign = 1
+	local insetAnchorX = 0
+	if props.ScrollBarPosition == Enum.VerticalScrollBarPosition.Left then
+		insetSign = -1
+		insetAnchorX = 1
+	end
 
 	local scrollInset = props.ScrollInset or UDim.new(0, 0)
 	local scrollVisibleTransparency = props.ScrollBarTransparency or 0
@@ -100,8 +108,12 @@ local function VerticalScroll(props: Props)
 		ScrollingFrame = React.createElement("ScrollingFrame", {
 			BorderSizePixel = 0,
 			BackgroundTransparency = 1,
-			Size = UDim2.new(1 + scrollInset.Scale, scrollInset.Offset, 1, 0),
+			Size = UDim2.new(1 + scrollInset.Scale * insetSign, scrollInset.Offset * insetSign, 1, 0),
+			Position = UDim2.fromScale(insetAnchorX, 0),
+			AnchorPoint = Vector2.new(insetAnchorX, 0),
+
 			CanvasSize = canvasOffset + UDim2.fromOffset(0, contentSize.Y),
+			VerticalScrollBarPosition = props.ScrollBarPosition,
 
 			ScrollingEnabled = not props.Disabled,
 			ScrollBarThickness = props.ScrollBarThickness or 4,
