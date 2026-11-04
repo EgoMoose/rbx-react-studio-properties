@@ -235,6 +235,23 @@ local function Widget(props: Props)
 						Disabled = props.Disabled,
 					})
 				end),
+
+				ColorSequenceField = React.createElement(function()
+					local value, setValue = React.useState(ColorSequence.new({
+						ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 20, 30)),
+						ColorSequenceKeypoint.new(0.5, Color3.fromRGB(255, 255, 255)),
+						ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 120, 255)),
+					}))
+					return React.createElement(StudioProperties.ColorSequence, {
+						FieldName = "ColorSequence",
+
+						Value = value,
+						OnValueSubmitted = setValue,
+
+						LayoutOrder = 8,
+						Disabled = props.Disabled,
+					})
+				end),
 			}),
 		}),
 	})

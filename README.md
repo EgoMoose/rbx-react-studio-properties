@@ -26,7 +26,7 @@ This package is heavily inspired by [StudioComponents](https://github.com/sircfe
 
 ## Plugin Context
 
-In order for the color picker widget to appear when using the Color3 property component you will need to provide plugin context:
+In order for the color picker and color sequence editor widgets to appear when using the Color3 or ColorSequence property components you will need to provide plugin context:
 
 ```luau
 return React.createElement(StudioProperties.PluginContext.Provider, {

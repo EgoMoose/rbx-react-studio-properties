@@ -1,5 +1,6 @@
 local uiRoot = script:FindFirstAncestor("UserInterface")
 local useColorPickerDock = require(uiRoot.Hooks.useColorPickerDock)
+local useColorSequencePickerOpen = require(uiRoot.Hooks.useColorSequencePickerOpen)
 local ColorPicker = require(uiRoot.Components.ColorPicker)
 
 local pkgs = uiRoot.Parent.Parent
@@ -47,7 +48,8 @@ end
 local function Color3Property(props: Props)
 	local theme = StudioComponents.useTheme()
 	local isOpen, dock, setDockEnabled = useColorPickerDock()
-	local disabled = props.Disabled or (dock and dock.Enabled)
+	local colorSequencePickerOpen = useColorSequencePickerOpen()
+	local disabled = props.Disabled or (dock and dock.Enabled) or colorSequencePickerOpen
 	local prevColor = React.useRef(props.Value)
 
 	local text, setText = React.useState(toText(toArray(props.Value)))

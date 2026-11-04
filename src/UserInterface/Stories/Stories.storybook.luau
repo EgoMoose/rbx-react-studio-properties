@@ -8,6 +8,7 @@ return {
 	storyRoots = {
 		uiRoot.Components.Properties,
 		uiRoot.Components.ColorPicker,
+		uiRoot.Components.ColorSequencePicker,
 		uiRoot.Components.VerticalScroll,
 	},
 	packages = {
