@@ -9,6 +9,9 @@ return {
 	ColorPicker = require(uiRoot.Components.ColorPicker),
 	useColorPickerOpen = require(uiRoot.Hooks.useColorPickerOpen),
 
+	ColorSequencePicker = require(uiRoot.Components.ColorSequencePicker),
+	useColorSequencePickerOpen = require(uiRoot.Hooks.useColorSequencePickerOpen),
+
 	PropertyLine = require(Properties.Foundational.PropertyLine),
 	PropertyGroup = require(Properties.Foundational.PropertyGroup),
 
@@ -31,4 +34,5 @@ return {
 	UDim2 = require(Properties.Roblox.UDim2Property),
 	CFrame = require(Properties.Roblox.CFrameProperty),
 	Color3 = require(Properties.Roblox.Color3Property),
+	ColorSequence = require(Properties.Roblox.ColorSequenceProperty),
 }
